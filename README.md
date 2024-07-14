@@ -16,7 +16,9 @@ Aplicación que utiliza la API de Spotify para obtener las características de l
 SPOTIPY_CLIENT_ID='ID_CLIENT_HERE'
 SPOTIPY_CLIENT_SECRET='CLIENT_SECRET_HERE'
 GENIUS_CLIENT_ACCESS_TOKEN='TOKEN_ACCESS_HERE'
-
+```
 ### Ejecucion
+
 ```bash
 python manage.py runserver
+```
