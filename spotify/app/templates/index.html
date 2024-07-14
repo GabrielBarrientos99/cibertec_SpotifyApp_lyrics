@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mx-auto mt-10">
+  <div class="text-center">
+      <h1 class="text-4xl font-bold font-montserrat">Enter your Spotify playlist link</h1>
+  </div>
+  <div class="flex justify-center mt-8">
+      <div class="w-full md:w-2/3 lg:w-1/2">
+          <form action="{% url 'display_playlist' %}" method="post" class="shadow-lg p-6 rounded bg-white">
+              {% csrf_token %}
+              <div class="mb-4">
+                  <label for="playlist_url" class="block text-lg font-medium text-gray-700">Playlist URL</label>
+                  <input type="text" class="mt-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500" id="playlist_url" name="playlist_url" placeholder="Enter Spotify Playlist URL">
+              </div>
+              <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+  {% if tracks %}
+  <div class="container mx-auto mt-10">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold font-montserrat">Playlist Tracks</h2>
+    </div>
+    <div class="mt-8 space-y-6">
+      {% for track in tracks %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
+          <div class="flex border-b border-gray-200">
+            <div class="w-1/4 h-full p-2">
+              <img src="{{ track.image_url }}" class="w-full h-full object-cover rounded-md" alt="{{ track.name }}">
+            </div>
+            <div class="w-1/4 p-4 flex flex-col justify-center border-r border-gray-200">
+              <h5 class="text-xl font-semibold">{{ track.name }}</h5>
+              <p class="text-gray-600">Artist: {{ track.artist }}</p>
+              <ul class="mt-2 space-y-1 text-gray-700">
+                <li>Danceability: {{ track.danceability }}</li>
+                <li>Energy: {{ track.energy }}</li>
+                <li>Tempo: {{ track.tempo }}</li>
+                <li>Valence: {{ track.valence }}</li>
+                <li>Speechiness: {{ track.speechiness }}</li>
+                <li>Acousticness: {{ track.acousticness }}</li>
+              </ul>
+              <div class="bg-gradient-to-r from-green-400 to-blue-500 text-white text-center py-2 font-bold">
+                Popularity: {{ track.popularity }}
+              </div>
+            </div>
+            <div class="w-1/2 p-4">
+              <h5 class="text-xl font-semibold">Lyrics</h5>
+              <div class="border-2 border-gray-300 p-2 rounded-lg custom-scrollbar max-h-64 overflow-auto">
+                <p class="text-gray-700 line-clamp-3">{{ track.lyrics|linebreaks }}</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .shadow-lg {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    .hover\:scale-105:hover {
+      transform: scale(1.05);
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #A0AEC0 #EDF2F7;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #EDF2F7;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #A0AEC0;
+      border-radius: 4px;
+      border: 2px solid #EDF2F7;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+    }
+  </style>
+{% endblock %}

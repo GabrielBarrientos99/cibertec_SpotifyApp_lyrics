@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Spotify App{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'index' %}" class="text-white text-lg font-semibold">Spotify App</a>
+            <button class="text-white block lg:hidden focus:outline-none" id="navbar-toggler">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div class="hidden lg:flex space-x-4" id="navbar-menu">
+                {% if user.is_authenticated %}
+                <a href="{% url 'index' %}" class="text-white hover:text-gray-300">Profile</a>
+                <a href="{% url 'index' %}" class="text-white hover:text-gray-300">Logout</a>
+                {% else %}
+                <a href="{% url 'index' %}" class="text-white hover:text-gray-300">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-5">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Tailwind JS for toggling the navbar -->
+    <script>
+        document.getElementById('navbar-toggler').addEventListener('click', function () {
+            var menu = document.getElementById('navbar-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
