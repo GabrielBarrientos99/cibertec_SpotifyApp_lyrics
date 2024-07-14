@@ -10,11 +10,13 @@ Aplicación que utiliza la API de Spotify para obtener las características de l
 - Cuenta en [Spotify Developer](https://developer.spotify.com/dashboard/applications) para obtener las credenciales de la API.
 - Cuenta en [Genius](https://genius.com/api-clients) para obtener el token de acceso de la API.
 
-## Instalación
-
 ### Crear un archivo .env
 
 ```python
 SPOTIPY_CLIENT_ID='ID_CLIENT_HERE'
 SPOTIPY_CLIENT_SECRET='CLIENT_SECRET_HERE'
 GENIUS_CLIENT_ACCESS_TOKEN='TOKEN_ACCESS_HERE'
+
+### Ejecucion
+```bash
+python manage.py runserver
